@@ -16,3 +16,14 @@ jobs:
         run: ls -tla
       - name: Current Time
         run: echo "Current Time ${date}"
+
+jobs: 
+  simple_deployment_pipeline:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Check Node version
+        run: node --version
