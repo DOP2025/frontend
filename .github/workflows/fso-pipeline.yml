@@ -15,4 +15,4 @@ jobs:
       - name: List of Files 
         run: ls -tla
       - name: Current Time
-        run: echo "Current Time::: ${date}"
+        run: echo "Current Time ${date}"
