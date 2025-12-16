@@ -1,3 +1,8 @@
 git add .
 git commit -m "feat(featureA): push to featA branch"
 git push origin featureA -u
+
+
+git add .
+git commit -m "setup(git)"
+git push origin main -u
