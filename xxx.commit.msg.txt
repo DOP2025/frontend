@@ -6,3 +6,5 @@ git push origin featureA -u
 git add .
 git commit -m "setup(git)"
 git push origin main -u
+
+git pull https://github.com/DOP2025/frontend.git main
