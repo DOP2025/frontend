@@ -16,8 +16,6 @@ jobs:
         run: ls -tla
       - name: Current Time
         run: echo "Current Time ${date}"
-
-jobs: 
   simple_deployment_pipeline:
     runs-on: ubuntu-latest
     steps: 
@@ -27,3 +25,5 @@ jobs:
           node-version: 24
       - name: Check Node version
         run: node --version
+        run: npm --version
+        run: npm install
