@@ -1,0 +1,18 @@
+name: FSO PIPELINE test
+
+on:
+  push:
+    branches: 
+      - main
+
+jobs: 
+  hello_world_job:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Just say hello world
+        run: |
+          echo "Hello World!"
+      - name: List of Files 
+        run: ls -tla
+      - name: Current Time
+        run: echo "Current Time::: ${date}"
