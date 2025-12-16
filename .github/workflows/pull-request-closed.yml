@@ -1,0 +1,13 @@
+name: PULL REQUEST OPENED
+
+on:
+  pull_request: 
+    branches: [main]
+    types: [closed]
+
+jobs: 
+  welcome_pull_request_opened_success:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Pull Request Opened Successfully!
+        run: echo "Pull Request Opened Successfully!"
