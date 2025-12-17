@@ -2,6 +2,11 @@ name: MANUAL TRIGGER
 
 on: 
   workflow_dispatch: 
+    inputs:
+      name: 
+        description: "Who to greet?"
+        required: true
+        default: "World"
 
 jobs:
   welcome_manual_trigger_success:
@@ -9,3 +14,5 @@ jobs:
     steps:
       - name: Manual Trigger Successful
         run: echo "Manual Trigger Successfully!"
+      - name: Say Hello
+        run: echo "Hello ${{github.event.inputs.name}}"
