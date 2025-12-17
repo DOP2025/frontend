@@ -1,0 +1,11 @@
+name: MANUAL TRIGGER
+
+on: 
+  workflow_dispatch: 
+
+jobs:
+  welcome_manual_trigger_success:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Manual Trigger Successful
+        run: echo "Manual Trigger Successfully!"

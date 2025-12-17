@@ -6,8 +6,8 @@ on:
     types: [closed]
 
 jobs: 
-  welcome_pull_request_opened_success:
+  welcome_pull_request_closed_success:
     runs-on: ubuntu-latest
     steps: 
-      - name: Pull Request Opened Successfully!
-        run: echo "Pull Request Opened Successfully!"
+      - name: Pull Request Closed/Merged Successfully!
+        run: echo "Pull Request Closed/Merged Successfully! =))"
