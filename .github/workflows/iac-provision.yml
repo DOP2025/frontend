@@ -49,36 +49,45 @@ jobs:
       - name: Run Fail Test
         run: npm run fail
 
-      # - name: Install dependencies
-      #   run: npm install
+      - name: Install dependencies
+        run: npm install
 
-      # - name: Check Code Format/Convention
-      #   run: npm run lint
+      - name: Check Code Format/Convention
+        run: npm run lint
 
       - name: Run Test
         run: npm run test
-      
-      - name: Check Docker Environment 
+  
+  provision_infra:
+    runs-on: self-hosted
+    steps:
+      - name: Update OS
         run: |
-          docker --version
-          docker compose version
+          sudo apt-get update
+          sudo apt-get install -y libatomic1
+    
+      
+      # - name: Check Docker Environment 
+      #   run: |
+      #     docker --version
+      #     docker compose version
 
       # - name: Install Docker
       #   uses: docker/setup-docker-action@v4
       
-      - name: Test Docker 
-        run: echo "$(docker --version) || $(docker compose version)"
+      # - name: Test Docker 
+      #   run: echo "$(docker --version) || $(docker compose version)"
       
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ env.DOCKERHUB_USERNAME }}
-          password: ${{ env.DOCKERHUB_PASSWORD }}
+      # - name: Login to Docker Hub
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: ${{ env.DOCKERHUB_USERNAME }}
+      #     password: ${{ env.DOCKERHUB_PASSWORD }}
 
-      - name: Build and Push 
-        uses: docker/build-push-action@v6
-        with: 
-          context:
-          file: ./Dockerfile
-          push: true
-          tags: ${{env.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO_NAME}}
+      # - name: Build and Push 
+      #   uses: docker/build-push-action@v6
+      #   with: 
+      #     context:
+      #     file: ./Dockerfile
+      #     push: true
+      #     tags: ${{env.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO_NAME}}
