@@ -25,39 +25,6 @@ env:
   DOCKERHUB_REPO_NAME: dop2025.shopsquare.frontend
 
 jobs: 
-  code_quality_check:
-    runs-on: self-hosted
-    strategy:
-      fail-fast: false # if a job failed, another jobs still run and return a result.
-    steps:
-      - name: Update OS
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libatomic1
-
-      - name: Checkout Repo
-        uses: actions/checkout@v6
-        # with:
-        #   fetch-depth: 0 #! get all git history (neccessary for some analysis tools)
-
-      - name: Install Runtime
-        uses: actions/setup-node@v6
-        with:
-          node-version: latest
-          cache: 'npm'
-
-      - name: Run Fail Test
-        run: npm run fail
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Check Code Format/Convention
-        run: npm run lint
-
-      - name: Run Test
-        run: npm run test
-  
   provision_infra:
     runs-on: self-hosted
     steps:
@@ -65,8 +32,50 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libatomic1
-    
       
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.14.3"
+        
+      - name: Terraform Check 
+        run: |
+          terraform --version
+          terraform validate
+
+  # code_quality_check:
+  #   runs-on: self-hosted
+  #   strategy:
+  #     fail-fast: false # if a job failed, another jobs still run and return a result.
+  #   steps:
+  #     - name: Update OS
+  #       run: |
+  #         sudo apt-get update
+  #         sudo apt-get install -y libatomic1
+
+  #     - name: Checkout Repo
+  #       uses: actions/checkout@v6
+  #       # with:
+  #       #   fetch-depth: 0 #! get all git history (neccessary for some analysis tools)
+
+  #     - name: Install Runtime
+  #       uses: actions/setup-node@v6
+  #       with:
+  #         node-version: latest
+  #         cache: 'npm'
+
+  #     - name: Run Fail Test
+  #       run: npm run fail
+
+  #     - name: Install dependencies
+  #       run: npm install
+
+  #     - name: Check Code Format/Convention
+  #       run: npm run lint
+
+  #     - name: Run Test
+  #       run: npm run test
+
       # - name: Check Docker Environment 
       #   run: |
       #     docker --version
