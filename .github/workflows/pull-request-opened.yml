@@ -23,5 +23,5 @@ jobs:
       - name: Pull Request Opened Successfully!
         run: echo "Pull Request Opened Successfully!"
       - name: Get environment data
-        run: echo "TEST_ENV_VAR ~ $TEST_ENV_VAR" || API_KEY ~ $API_KEY"
+        run: echo "TEST_ENV_VAR ~ $TEST_ENV_VAR || API_KEY ~ $API_KEY"
 
