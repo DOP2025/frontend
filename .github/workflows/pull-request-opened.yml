@@ -1,11 +1,14 @@
 name: PULL REQUEST OPENED
 
 on:
+  push:
+    branches: [main]
   pull_request: 
     branches: [main, develop]
     paths-ignore: # just update docs -> skip
       - ‘**.md’
       - 'docs/**'
+      - '.github/workflows/**'
     types: [opened, synchronize]
   workflow_dispatch: 
 
@@ -31,8 +34,9 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0 # get all git history (neccessary for some analysis tools)
+        # with:
+        #   fetch-depth: 0 #! get all git history (neccessary for some analysis tools)
+
       - name: Install Runtime
         uses: actions/setup-node@v6
         with:
