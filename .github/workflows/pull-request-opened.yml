@@ -1,8 +1,8 @@
 name: PULL REQUEST OPENED
 
 on:
-  push:
-    branches: [main]
+  # push:
+  #   branches: [main]
   pull_request: 
     branches: [main, develop]
     paths-ignore: # just update docs -> skip
