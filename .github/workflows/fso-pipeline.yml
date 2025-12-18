@@ -1,9 +1,10 @@
 name: FSO PIPELINE test
 
 on:
-  push:
-    branches: 
-      - main
+  workflow_dispatch: 
+  # push:
+  #   branches: 
+  #     - main
 
 jobs: 
   hello_world_job:
@@ -16,6 +17,7 @@ jobs:
         run: ls -tla
       - name: Current Time
         run: echo "Current Time ${date}"
+
   # simple_deployment_pipeline:
   #   runs-on: ubuntu-latest
   #   steps: 
