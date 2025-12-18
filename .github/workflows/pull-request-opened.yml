@@ -11,10 +11,17 @@ on:
 
 permissions: 
   contents: read
-  
+
+env:
+  TEST_ENV_VAR: 123456
+  API_KEY: ${{secrets.API_KEY}}
+
 jobs: 
   welcome_pull_request_opened_success:
     runs-on: ubuntu-latest
     steps: 
       - name: Pull Request Opened Successfully!
         run: echo "Pull Request Opened Successfully!"
+      - name: Get environment data
+        run: echo "TEST_ENV_VAR ~ $TEST_ENV_VAR" || API_KEY ~ $API_KEY"
+
