@@ -32,7 +32,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libatomic1 unzip nodejs
-          ln -s /usr/bin/nodejs /usr/local/bin/node
       
       - name: Install Terraform
         uses: hashicorp/setup-terraform@v3
