@@ -44,7 +44,7 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: latest
-          # cache: 'npm'
+          cache: 'npm'
 
       - name: Run Fail Test
         run: npm run fail
@@ -55,9 +55,15 @@ jobs:
       # - name: Check Code Format/Convention
       #   run: npm run lint
 
-      # - name: Run Test
-      #   run: npm run test
+      - name: Run Test
+        run: npm run test
       
-      - name: Check Supported Git Variables
-        run: printenv
+      # - name: Check Supported Git Variables
+      #   run: printenv
       
+      - name: Install Docker
+        uses: docker/setup-docker-action@v4
+      
+      - name: Test Docker 
+        run: echo "$(docker --version) || $(docker compose version)"
+
