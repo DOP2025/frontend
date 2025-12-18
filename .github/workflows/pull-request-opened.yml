@@ -20,6 +20,9 @@ permissions:
 env:
   TEST_ENV_VAR: 123456
   API_KEY: ${{secrets.API_KEY}}
+  DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+  DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+  DOCKERHUB_REPO_NAME: dop2025.shopsquare.frontend
 
 jobs: 
   # welcome_pull_request_opened_success:
@@ -66,4 +69,19 @@ jobs:
       
       - name: Test Docker 
         run: echo "$(docker --version) || $(docker compose version)"
+      
+      - name: Build and Push 
+        uses: docker/build-push-action@v6
+        with: 
+          context:
+          file: ./Dockerfile
+          push: true
+          tags: ${{env.DOCKERHUB_USERNAME}}/${{env.DOCKERHUB_REPO_NAME}}
+      # - name: re-tag Docker Image 
+      #   run: docker image tag 
 
+      # - name: Push Docker Image to Docker Hub
+      #   run: |
+      #   # docker build -t ${{ secrets.DOCKERHUB_USERNAME }}.shopsquare.frontend:v1.0.0 .
+      #   # docker login -u ${{ secrets.DOCKERHUB_USERNAME }}@gmail.com
+      #   # docker push ${{ secrets.DOCKERHUB_USERNAME }}/dop2025.shopsquare.frontend:v1.0.0
