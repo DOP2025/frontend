@@ -34,10 +34,15 @@ jobs:
   #       run: echo "TEST_ENV_VAR ~ $TEST_ENV_VAR || API_KEY ~ $API_KEY" # output: `TEST_ENV_VAR ~ 123456 || API_KEY ~ ***`
   
   code_quality_check:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     strategy:
       fail-fast: false # if a job failed, another jobs still run and return a result.
     steps:
+      - name: Update OS
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libatomic1
+          
       - name: Checkout Repo
         uses: actions/checkout@v6
         # with:
