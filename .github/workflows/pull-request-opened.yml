@@ -12,7 +12,7 @@ on:
       - '.github/workflows/**'
     types: [opened, synchronize]
   workflow_dispatch: 
-# 
+
 # Permission for GITHUB_TOKEN (Security Best Practice)  
 permissions: 
   contents: read

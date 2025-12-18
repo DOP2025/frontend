@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "node xxxtest.js",
-    "fail": "node xxxfail.js"
+    "fail": "node xxxfail.js",
+    "gitpush": "git add . && git commit -m quick_push && git push origin main -u"
   },
   "dependencies": {
     "react": "^19.1.1",
