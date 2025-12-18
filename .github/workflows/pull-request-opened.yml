@@ -6,7 +6,8 @@ on:
   pull_request: 
     branches: [main, develop]
     paths-ignore: # just update docs -> skip
-      - ‘**.md’
+      - '**.md'
+      - '**.txt'
       - 'docs/**'
       - '.github/workflows/**'
     types: [opened, synchronize]
