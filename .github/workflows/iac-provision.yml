@@ -42,6 +42,9 @@ jobs:
         run: |
           terraform --version
           terraform validate
+      
+      - name: Terraform Plan
+        run: terraform plan
 
   # code_quality_check:
   #   runs-on: self-hosted
