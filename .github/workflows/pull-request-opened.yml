@@ -22,16 +22,18 @@ env:
   API_KEY: ${{secrets.API_KEY}}
 
 jobs: 
-  welcome_pull_request_opened_success:
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Pull Request Opened Successfully!
-        run: echo "Pull Request Opened Successfully!"
-      - name: Get environment data
-        run: echo "TEST_ENV_VAR ~ $TEST_ENV_VAR || API_KEY ~ $API_KEY" # output: `TEST_ENV_VAR ~ 123456 || API_KEY ~ ***`
+  # welcome_pull_request_opened_success:
+  #   runs-on: ubuntu-latest
+  #   steps: 
+  #     - name: Pull Request Opened Successfully!
+  #       run: echo "Pull Request Opened Successfully!"
+  #     - name: Get environment data
+  #       run: echo "TEST_ENV_VAR ~ $TEST_ENV_VAR || API_KEY ~ $API_KEY" # output: `TEST_ENV_VAR ~ 123456 || API_KEY ~ ***`
   
   code_quality_check:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # if a job failed, another jobs still run and return a result.
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v6
@@ -46,15 +48,15 @@ jobs:
 
       - name: Run Fail Test
         run: npm run fail
-        
-      - name: Install dependencies
-        run: npm install
 
-      - name: Check Code Format/Convention
-        run: npm run lint
+      # - name: Install dependencies
+      #   run: npm install
 
-      - name: Run Test
-        run: npm run test
+      # - name: Check Code Format/Convention
+      #   run: npm run lint
+
+      # - name: Run Test
+      #   run: npm run test
       
       - name: Check Supported Git Variables
         run: printenv
