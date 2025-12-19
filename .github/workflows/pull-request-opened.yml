@@ -1,8 +1,8 @@
 name: PULL REQUEST OPENED
 
 on:
-  # push:
-  #   branches: [main]
+  push:
+    branches: [main]
   pull_request: 
     branches: [main, develop]
     paths-ignore: # just update docs -> skip
@@ -43,10 +43,10 @@ jobs:
         # with:
         #   fetch-depth: 0 #! get all git history (neccessary for some analysis tools)
       
-      - name: Update OS
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libatomic1 unzip
+      # - name: Update OS
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y libatomic1 unzip 
 
       - name: Install Runtime
         uses: actions/setup-node@v6
