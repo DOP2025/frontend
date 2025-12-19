@@ -34,7 +34,7 @@ jobs:
   #       run: echo "TEST_ENV_VAR ~ $TEST_ENV_VAR || API_KEY ~ $API_KEY" # output: `TEST_ENV_VAR ~ 123456 || API_KEY ~ ***`
   
   code_quality_check:
-    runs-on: self-hosted # ubuntu-latest
+    runs-on: dop10_self_hosted_runner_01 # ubuntu-latest
     strategy:
       fail-fast: false # if a job failed, another jobs still run and return a result.
     steps:
