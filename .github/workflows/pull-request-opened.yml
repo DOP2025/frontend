@@ -43,11 +43,6 @@ jobs:
         # with:
         #   fetch-depth: 0 #! get all git history (neccessary for some analysis tools)
 
-      - name: Install and Update OS
-        run: |
-          sudo apt update && sudo apt upgrade -y
-          sudo apt install -y ca-certificates curl gnupg lsb-release
-
       - name: Install Runtime
         uses: actions/setup-node@v6
         with:
