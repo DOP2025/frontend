@@ -19,6 +19,7 @@ jobs:
         run: echo "Current Time ${date}"
   
   tf_plan: 
+    name: Terraform Plan
     runs-on: dop10_self_hosted_runner_01
     steps: 
       - name: Plan
@@ -27,8 +28,10 @@ jobs:
           echo "tf plan completed at ${date}"
 
   tf_apply:
+    name: Terraform Apply
     needs: tf_plan
     runs-on: dop10_self_hosted_runner_01
+    environment: dev
     steps: 
       - name: Apply
         run: |
