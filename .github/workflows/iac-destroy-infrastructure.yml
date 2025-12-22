@@ -1,4 +1,4 @@
-name: IAC Manually Trigger Provision
+name: IAC Destroy Infrastructure
 
 on:
   workflow_dispatch:
@@ -14,8 +14,8 @@ env:
   AWS_IAM_ID: ${{secrets.AWS_IAM_ID}}
 
 jobs:
-  manually-trigger-provision:
-    name: Manually Trigger Provision
+  destroy_infrastructure:
+    name: Destroy Infrastructure
     runs-on: dop10_self_hosted_runner_01
     steps:
       - name: Update OS
@@ -62,13 +62,13 @@ jobs:
           terraform fmt -check 
           terraform validate
       
-      - name: Terraform Plan
-        id: plan
-        run: | 
-          terraform plan
+      # - name: Terraform Plan
+      #   id: plan
+      #   run: | 
+      #     terraform plan --no-color -out=tfplan
 
-      - name: Terraform Apply
-        run: terraform apply # terraform apply
+      # - name: Terraform Apply
+      #   run: terraform apply tfplan --no-color # terraform apply
         
       - name: Terraform Destroy
         run: terraform destroy --auto-approve --no-color
