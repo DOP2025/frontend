@@ -9,17 +9,20 @@ permissions:
   pull-requests: write
 
 env: 
-  AWS_REGION: ap-northeast-2
   TF_VERSION: latest
+  AWS_REGION: ap-northeast-2
   AWS_IAM_ID: ${{secrets.AWS_IAM_ID}}
-  AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
-  AWS_SECRET_KEY_ID: ${{secrets.AWS_SECRET_KEY_ID}}
 
 jobs:
   manually-trigger-provision:
     name: Manually Trigger Provision
     runs-on: dop10_self_hosted_runner_01
     steps:
+      - name: Update OS
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libatomic1 unzip
+          
       - name: Checkout Repository
         uses: actions/checkout@v6
 
