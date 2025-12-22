@@ -68,11 +68,11 @@ jobs:
         run: |
           pwd
           ls -tla
-          terraform plan -no-color -detailed-exitcode -out=tfplan
+          terraform plan -no-color -detailed-exitcode
         continue-on-error: true
 
-      # - name: Terraform Apply
-      #   run: terraform apply # terraform apply
+      - name: Terraform Apply
+        run: terraform apply # terraform apply
         
       # - name: Terraform Destroy
       #   run: terraform destroy --auto-approve --no-color
