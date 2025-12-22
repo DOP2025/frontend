@@ -17,7 +17,24 @@ jobs:
         run: ls -tla
       - name: Current Time
         run: echo "Current Time ${date}"
+  
+  tf_plan: 
+    runs-on: dop10_self_hosted_runner_01
+    steps: 
+      - name: Plan
+        run: |
+          echo "tf plan is executing now ..."
+          echo "tf plan completed at ${date}"
 
+  tf_apply:
+    needs: tf_plan
+    runs-on: dop10_self_hosted_runner_01
+    steps: 
+      - name: Apply
+        run: |
+          echo "tf apply is executing now ..."
+          echo "tf apply completed at ${date}"
+    
   # simple_deployment_pipeline:
   #   runs-on: ubuntu-latest
   #   steps: 
