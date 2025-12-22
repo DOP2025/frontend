@@ -22,7 +22,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libatomic1 unzip
-          
+
       - name: Checkout Repository
         uses: actions/checkout@v6
 
@@ -33,7 +33,9 @@ jobs:
           aws-region: ${{env.AWS_REGION}}
       
       - name: AWS connect check
-        run: aws s3 ls # aws sts get-caller-identity
+        run: |
+          aws --version
+          aws s3 ls # aws sts get-caller-identity
 
       # - name: Setup Terraform
       #   uses: hashicorp/setup-terraform@v3
