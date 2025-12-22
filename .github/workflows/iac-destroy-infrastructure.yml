@@ -71,4 +71,4 @@ jobs:
       #   run: terraform apply tfplan --no-color # terraform apply
         
       - name: Terraform Destroy
-        run: terraform destroy --auto-approve --no-color
+        run: terraform destroy --auto-approve
