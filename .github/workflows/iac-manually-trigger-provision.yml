@@ -52,10 +52,13 @@ jobs:
         run: terraform version
 
       - name: Terraform Init
-        run: terraform init 
+        run: |
+          pwd
+          cd .infra
+          terraform init 
       
-      # - name: Terraform Format 
-      #   run: |
-      #     terraform fmt -check 
-      #     terraform validate
+      - name: Terraform Format 
+        run: |
+          terraform fmt -check 
+          terraform validate
       
