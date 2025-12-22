@@ -37,17 +37,20 @@ jobs:
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
           sudo ./aws/install
-          
-      - name: AWS connect check
+
+      - name: AWS Connection Check
         run: |
           aws --version
           aws s3 ls # aws sts get-caller-identity
 
-      # - name: Setup Terraform
-      #   uses: hashicorp/setup-terraform@v3
-      #   with:
-      #     terraform_version: ${{env.TF_VERSION}}
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{env.TF_VERSION}}
       
+      - name: Terraform Version Check
+        run: terraform version
+        
       # - name: Terraform Init
       #   run: terraform init -backend-config="bucket=my-state-bucket"
       
