@@ -72,6 +72,7 @@ jobs:
         continue-on-error: true
 
       - name: Terraform Apply
+        working-directory: .infra 
         run: terraform apply # terraform apply
         
       # - name: Terraform Destroy
