@@ -51,8 +51,8 @@ jobs:
       - name: Terraform Version Check
         run: terraform version
 
-      # - name: Terraform Init
-      #   run: terraform init -backend-config="bucket=my-state-bucket"
+      - name: Terraform Init
+        run: terraform init 
       
       # - name: Terraform Format 
       #   run: |
