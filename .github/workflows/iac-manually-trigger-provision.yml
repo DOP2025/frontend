@@ -26,19 +26,22 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:awsn:iam::${{env.AWS_IAM_ID}}:role/TerraformPlanRole
+          role-to-assume: arn:aws:iam::${{env.AWS_IAM_ID}}:role/GithubActionsDeployRole
           aws-region: ${{env.AWS_REGION}}
       
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: ${{env.TF_VERSION}}
+      - name: AWS connect check
+        run: aws s3 ls # aws sts get-caller-identity
+
+      # - name: Setup Terraform
+      #   uses: hashicorp/setup-terraform@v3
+      #   with:
+      #     terraform_version: ${{env.TF_VERSION}}
       
-      - name: Terraform Init
-        run: terraform init -backend-config="bucket=my-state-bucket"
+      # - name: Terraform Init
+      #   run: terraform init -backend-config="bucket=my-state-bucket"
       
-      - name: Terraform Format 
-        run: |
-          terraform fmt -check 
-          terraform validate
+      # - name: Terraform Format 
+      #   run: |
+      #     terraform fmt -check 
+      #     terraform validate
       
