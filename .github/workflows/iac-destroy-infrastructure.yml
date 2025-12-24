@@ -41,7 +41,9 @@ jobs:
       - name: AWS Connection Check
         run: |
           aws --version
-          aws s3 ls # aws sts get-caller-identity
+          aws s3 ls 
+          
+        # aws sts get-caller-identity
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
@@ -61,14 +63,11 @@ jobs:
         run: |
           terraform fmt -check 
           terraform validate
-      
-      # - name: Terraform Plan
-      #   id: plan
-      #   run: | 
-      #     terraform plan --no-color -out=tfplan
-
-      # - name: Terraform Apply
-      #   run: terraform apply tfplan --no-color # terraform apply
+        
+      - name: Terraform Plan 
+        working-directory: .infra
+        run: terraform plan -no-color
         
       - name: Terraform Destroy
-        run: terraform destroy --auto-approve
+        working-directory: .infra
+        run: terraform destroy -auto-approve

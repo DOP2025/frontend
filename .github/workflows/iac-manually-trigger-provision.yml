@@ -14,6 +14,7 @@ env:
   AWS_IAM_ID: ${{secrets.AWS_IAM_ID}}
 
 jobs:
+  # --- STEP 1: PLAN ---
   terraform-plan:
     name: Manually Trigger Plan
     runs-on: dop10_self_hosted_runner_01
@@ -79,6 +80,7 @@ jobs:
           path: .infra/tfplan
           retention-days: 1
 
+  # --- STEP 2: APPLY ---
   terraform-apply:
     name: Terraform Apply
     needs: terraform-plan
@@ -138,6 +140,3 @@ jobs:
       - name: Terraform Apply
         working-directory: .infra
         run: terraform apply -no-color tfplan
-        
-      # - name: Terraform Destroy
-      #   run: terraform destroy --auto-approve --no-color
