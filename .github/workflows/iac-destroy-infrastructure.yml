@@ -2,11 +2,16 @@ name: IAC Destroy Infrastructure
 
 on:
   workflow_dispatch:
+    inputs:
+      confirmation:
+        description: 'Type "DESTROY" to confirm infrastructure destruction'
+        required: true
+        default: ''
 
 permissions: 
   id-token: write
   contents: read
-  pull-requests: write
+  # pull-requests: write
 
 env: 
   TF_VERSION: latest
@@ -16,7 +21,9 @@ env:
 jobs:
   destroy_infrastructure:
     name: Destroy Infrastructure
+    if: ${{github.event.inputs.confirmation == 'DESTROY'}}
     runs-on: dop10_self_hosted_runner_01
+    environment: dev
     steps:
       - name: Update OS
         run: |
@@ -67,7 +74,7 @@ jobs:
       - name: Terraform Plan 
         working-directory: .infra
         run: terraform plan -no-color
-        
+
       - name: Terraform Destroy
         working-directory: .infra
         run: terraform destroy -auto-approve
