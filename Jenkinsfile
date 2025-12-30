@@ -6,6 +6,7 @@ pipeline {
             steps {
                 echo 'Hello World from GitHub Repository!'
                 echo 'run by Jenkins Self Hosted Agent'
+                echo 'Have a nice day! :)'
             }
         }
     }
