@@ -34,11 +34,11 @@ pipeline {
     stages {
         stage('Setup dependencies') {
             steps {
-                sh '''
-                sudo apt-get update -y
-                sudo apt-get install -y libatomic1 unzip curl
-                sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release -y
-                '''
+                // sh '''
+                // sudo apt-get update -y
+                // sudo apt-get install -y libatomic1 unzip curl
+                // sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release -y
+                // '''
 
                 sh 'node --version'
                 sh 'npm --version'
