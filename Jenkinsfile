@@ -41,14 +41,14 @@ pipeline {
                 sh 'npm --version'
             }
 	    }
+    // echo "The value of TEST_PARAM is: ${params.TEST_PARAM}"
+    // sh "echo ${params.TEST_PARAM}"
 		stage('Test Parameter') {
       steps {
-        echo "The value of TEST_PARAM is: ${params.TEST_PARAM}"
         sh '''
         echo "Testing parameter value"
-        echo "{TEST_PARAM}"
+        echo "${params.TEST_PARAM}"
         '''
-        sh "echo ${params.TEST_PARAM}"
       }
     }
 
