@@ -7,9 +7,15 @@ pipeline {
 	
 	parameters {
 		string(name: 'GIT_CREDENTIALS', defaultValue: 'GITHUB_CREDENTIALS', description: 'Credentials for GitHub')
+
 		string(name: 'DOCKERHUB_CREDENTIALS', defaultValue: 'DOCKERHUB_CREDENTIALS', description: 'Credentials for DockerHub')
+    string(name: 'DOCKERHUB_USER', defaultValue: 'nguydentdkptit02', description: 'User for DockerHub')
+    string(name: 'DOCKERHUB_REPO', defaultValue: 'dop2025.shopsquare.frontend', description: 'Repository for DockerHub')
+
 		string(name: 'AWS_ACCESS_KEY_ID', defaultValue: 'AWS_ACCESS_KEY_ID', description: 'Access Key Id for AWS')
 		string(name: 'AWS_SECRET_ACCESS_KEY', defaultValue: 'AWS_SECRET_ACCESS_KEY', description: 'Secret Key for AWS')
+
+    string(name: 'TEST_PARAM', defaultValue: 'test_param_default_value', description: 'A test parameter')
 	}
 
 	// environment {
@@ -19,6 +25,8 @@ pipeline {
   //   IMAGE_TAG      = "${BUILD_NUMBER}"
   //   ECR_REGISTRY   = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
   //   PATH           = "$WORKSPACE/bin:$PATH"
+  //   DOCKERHUB_USER = 'nguydentdkptit02'
+  //   DOCKERHUB_REPO = 'dop2025.shopsquare.frontend'
   // }
     
 	stages {
@@ -33,7 +41,32 @@ pipeline {
                 sh 'npm --version'
             }
 	    }
-			
+		stage('Test Parameter') {
+      steps {
+        echo "The value of TEST_PARAM is: ${params.TEST_PARAM}"
+        sh '''
+        echo "Testing parameter value"
+        echo "${TEST_PARAM}"
+        '''
+        sh "echo ${TEST_PARAM}"
+      }
+    }
+
+    stage('Initialize Docker') {
+        steps {
+            sh '''
+                # Install Docker CLI if not present
+                if ! command -v docker &> /dev/null; then
+                    echo "Docker CLI not found. Installing..."
+                    apt-get update && apt-get install -y docker.io
+                fi
+                echo "Docker CLI installed"
+                docker --version
+                docker compose version
+            '''
+        }
+    }
+
 		stage('Clone source') {
             steps {
                 checkout([$class: 'GitSCM', 
