@@ -48,7 +48,7 @@ pipeline {
       steps {
         sh '''
         echo "Testing parameter value"
-        echo "${params.TEST_PARAM}"
+        echo "$TEST_PARAM"
         '''
       }
     }
