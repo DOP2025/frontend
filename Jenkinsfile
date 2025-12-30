@@ -46,9 +46,9 @@ pipeline {
         echo "The value of TEST_PARAM is: ${params.TEST_PARAM}"
         sh '''
         echo "Testing parameter value"
-        echo "${TEST_PARAM}"
+        echo "{TEST_PARAM}"
         '''
-        sh "echo ${TEST_PARAM}"
+        sh "echo ${params.TEST_PARAM}"
       }
     }
 
