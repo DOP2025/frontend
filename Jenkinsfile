@@ -98,7 +98,7 @@ pipeline {
 		
 		stage('Analysis') {
 			steps {
-				echo "Analysis Application"
+				echo "Analysis Application with SonarQube"
 			}
 		}
 		
