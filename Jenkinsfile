@@ -63,42 +63,42 @@ pipeline {
 			}
 		}
 		
-		stage('Login to AWS ECR'){
-			steps {
-				withCredentials([[
-            $class: 'UsernamePasswordMultiBinding', 
-            credentialsId: params.AWS_CREDENTIALS,
-            usernameVariable: 'AWS_ACCESS_KEY_ID', 
-            passwordVariable: 'AWS_SECRET_ACCESS_KEY'
-        ]]) {
-						sh '''
-						mkdir -p $WORKSPACE/bin
-            mkdir -p $WORKSPACE/aws-cli-src
+		// stage('Login to AWS ECR'){
+		// 	steps {
+		// 		withCredentials([[
+    //         $class: 'UsernamePasswordMultiBinding', 
+    //         credentialsId: params.AWS_CREDENTIALS,
+    //         usernameVariable: 'AWS_ACCESS_KEY_ID', 
+    //         passwordVariable: 'AWS_SECRET_ACCESS_KEY'
+    //     ]]) {
+		// 				sh '''
+		// 				mkdir -p $WORKSPACE/bin
+    //         mkdir -p $WORKSPACE/aws-cli-src
 
-            if ! command -v aws &> /dev/null; then
-              echo "AWS CLI not found. Installing locally in workspace..."
-              curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+    //         if ! command -v aws &> /dev/null; then
+    //           echo "AWS CLI not found. Installing locally in workspace..."
+    //           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
               
-              python3 -m zipfile -e awscliv2.zip $WORKSPACE/aws-cli-src
+    //           python3 -m zipfile -e awscliv2.zip $WORKSPACE/aws-cli-src
               
-              ./aws-cli-src/aws/install -i $WORKSPACE/aws-cli-install -b $WORKSPACE/bin --update
+    //           ./aws-cli-src/aws/install -i $WORKSPACE/aws-cli-install -b $WORKSPACE/bin --update
               
-              rm -rf awscliv2.zip $WORKSPACE/aws-cli-src
-            fi
+    //           rm -rf awscliv2.zip $WORKSPACE/aws-cli-src
+    //         fi
 
-            export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-            export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+    //         export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+    //         export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
             
-            $WORKSPACE/bin/aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REGISTRY}
-						'''
+    //         $WORKSPACE/bin/aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REGISTRY}
+		// 				'''
 
-						// sh "aws --version"
-						// sh "aws s3 ls"
-            // sh "export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}"
-            // sh "export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}"
-        }
-			}
-		}
+		// 				// sh "aws --version"
+		// 				// sh "aws s3 ls"
+    //         // sh "export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}"
+    //         // sh "export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}"
+    //     }
+		// 	}
+		// }
 
 		stage('Push Docker Image') {
 			steps {
