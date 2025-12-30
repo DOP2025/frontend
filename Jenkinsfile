@@ -62,47 +62,38 @@ pipeline {
                 sh """
                     if ! command -v docker &> /dev/null; then
                         echo "Docker CLI not found. Attempting to install..."
-                        sudo apt-get update && sudo apt-get install -y docker.io || \
-                        (apt-get update && apt-get install -y docker.io)
+                        
+                        sudo apt-get update
+                        sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release -y
                         
                         sudo mkdir -p /etc/apt/keyrings
                         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
                         echo \
-                          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-                          $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+                          "deb [arch=\$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+                          \$(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
                         sudo apt update
                         sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
-                        sudo systemctl status docker
-
-                        sudo groupadd docker
-                        sudo usermod -aG docker $USER
-                        newgrp docker
-                        docker ps
-                        sudo systemctl restart docker
-                        sudo chown root:docker /var/run/docker.sock
-
-                        docker --version
-                        docker compose version
+                        sudo usermod -aG docker \$USER                        
                     fi
                     
                     if command -v docker &> /dev/null; then
                         docker --version
                         echo "Docker CLI is ready."
                     else
-                        echo "ERROR: Failed to install Docker CLI. Please check agent permissions."
+                        echo "ERROR: Failed to install Docker CLI."
                         exit 1
                     fi
 
                     export DOCKER_BUILDKIT=1
             
+                    # Fix quyền truy cập socket
                     if [ ! -w /var/run/docker.sock ]; then
                         sudo chmod 666 /var/run/docker.sock
                     fi
 
-                    ls -tla /var/run/docker.sock
                     docker version
                 """
             }
