@@ -68,15 +68,15 @@ pipeline {
     }
 
 		stage('Clone source') {
-            steps {
-                checkout([$class: 'GitSCM', 
-                    branches: [[name: '*/main']], 
-                    userRemoteConfigs: [[
-                        url: 'https://github.com/DOP2025/frontend', 
-                        credentialsId: params.GIT_CREDENTIALS
-                    ]]
-                ])
-            }
+      steps {
+        checkout([$class: 'GitSCM', 
+          branches: [[name: '*/main']], 
+          userRemoteConfigs: [[
+            url: 'https://github.com/DOP2025/frontend', 
+            credentialsId: params.GIT_CREDENTIALS
+          ]]
+        ])
+      }
 		}
 
 		stage('Build') {
