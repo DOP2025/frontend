@@ -55,16 +55,21 @@ pipeline {
 
     stage('Initialize Docker') {
         steps {
-            sh '''
-                # Install Docker CLI if not present
+            sh """
                 if ! command -v docker &> /dev/null; then
-                    echo "Docker CLI not found. Installing..."
-                    apt-get update && apt-get install -y docker.io
+                    echo "Docker CLI not found. Attempting to install..."
+                    sudo apt-get update && sudo apt-get install -y docker.io || \
+                    (apt-get update && apt-get install -y docker.io)
                 fi
-                echo "Docker CLI installed"
-                docker --version
-                docker compose version
-            '''
+                
+                if command -v docker &> /dev/null; then
+                    docker --version
+                    echo "Docker CLI is ready."
+                else
+                    echo "ERROR: Failed to install Docker CLI. Please check agent permissions."
+                    exit 1
+                fi
+            """
         }
     }
 
