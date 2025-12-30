@@ -12,22 +12,22 @@ pipeline {
 		string(name: 'AWS_SECRET_ACCESS_KEY', defaultValue: 'AWS_SECRET_ACCESS_KEY', description: 'Secret Key for AWS')
 	}
 
-	environment {
-        AWS_ACCOUNT_ID = '846040891095'
-        AWS_REGION     = 'ap-northeast-2'
-        ECR_REPO_NAME  = 'shopsquare/frontend'
-        IMAGE_TAG      = "${BUILD_NUMBER}"
-        ECR_REGISTRY   = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
-				PATH           = "$WORKSPACE/bin:$PATH"
-    }
+	// environment {
+  //   AWS_ACCOUNT_ID = '846040891095'
+  //   AWS_REGION     = 'ap-northeast-2'
+  //   ECR_REPO_NAME  = 'shopsquare/frontend'
+  //   IMAGE_TAG      = "${BUILD_NUMBER}"
+  //   ECR_REGISTRY   = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
+  //   PATH           = "$WORKSPACE/bin:$PATH"
+  // }
     
 	stages {
 	    stage('Setup dependencies') {
             steps {
-                sh '''
-                sudo apt-get update -y
-                sudo apt-get install -y libatomic1 unzip curl
-                '''
+                // sh '''
+                // sudo apt-get update -y
+                // sudo apt-get install -y libatomic1 unzip curl
+                // '''
 
                 sh 'node --version'
                 sh 'npm --version'
@@ -100,6 +100,8 @@ pipeline {
 		// 	}
 		// }
 
+    // ! PUSH TO DOCKERHUB
+    // docker push nguyentdkptit02/dop2025.shopsquare.frontend:tagname
 		stage('Push Docker Image') {
 			steps {
 				echo "Build & Push Docker Image to Registry"
