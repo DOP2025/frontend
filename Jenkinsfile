@@ -34,26 +34,27 @@ pipeline {
     stages {
         stage('Setup dependencies') {
             steps {
-                // sh '''
-                // sudo apt-get update -y
-                // sudo apt-get install -y libatomic1 unzip curl
-                // '''
+                sh '''
+                sudo apt-get update -y
+                sudo apt-get install -y libatomic1 unzip curl docker-buildx-plugin
+                '''
 
                 sh 'node --version'
                 sh 'npm --version'
             }
         }
 
-        // stage('Test Parameter') {
-        //   steps {
-        //     sh '''
-        //     echo "Testing parameter value"
-        //     echo "$TEST_PARAM"
-        //     '''
-        //     echo "The value of TEST_PARAM is: ${params.TEST_PARAM}"
-        //     sh "echo ${params.TEST_PARAM}"
-        //   }
-        // }
+        stage('Test Parameter') {
+          steps {
+            // sh '''
+            // echo "Testing parameter value"
+            // echo "$TEST_PARAM"
+            // '''
+            // echo "The value of TEST_PARAM is: ${params.TEST_PARAM}"
+            // sh "echo ${params.TEST_PARAM}"
+            sh "id -ng"
+          }
+        }
 
         stage('Initialize Docker') {
             steps {
@@ -71,6 +72,15 @@ pipeline {
                         echo "ERROR: Failed to install Docker CLI. Please check agent permissions."
                         exit 1
                     fi
+
+                    export DOCKER_BUILDKIT=1
+            
+                    if [ ! -w /var/run/docker.sock ]; then
+                        sudo chmod 666 /var/run/docker.sock
+                    fi
+                    
+                    ls -tla /var/run/docker.sock
+                    docker version
                 """
             }
         }
