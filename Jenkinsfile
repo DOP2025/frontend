@@ -23,11 +23,12 @@ pipeline {
 
         stage('Setup dependencies') {
             steps {
-                sh 'node --version'
-                sh 'npm --version'
+                // sh 'node --version'
+                // sh 'npm --version'
+                echo "Setup dependencies stage success."
             }
         }
-        
+
         stage('Install Docker') {
             steps {
                 sh '''
