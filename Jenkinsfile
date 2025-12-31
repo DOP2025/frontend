@@ -18,6 +18,11 @@ pipeline {
             }
         }
 
+        stage('Test Pipeline') {
+            steps {
+                echo "jk agent checking"
+            }
+        }
         stage('Install Docker') {
             steps {
                 sh '''
