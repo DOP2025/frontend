@@ -50,7 +50,7 @@ pipeline {
                     // echo "Building Docker image: ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}"
                     // sh "docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} -t ${DOCKER_IMAGE_NAME}:latest ."
                     echo "Building Docker Image ..."
-                    sh "docker build -t ${AWS_ECR_IMAGE_URI}:${BUILD_NUMBER} -t ${AWS_ECR_IMAGE_URI}:latest ."
+                    sh "docker build -t ${AWS_ECR_IMAGE_URI}:latest ."
                 }
             }
         }
@@ -59,7 +59,6 @@ pipeline {
             steps {
                 withCredentials([aws(credentialsId: AWS_CREDENTIALS_ID, region: AWS_REGION)]) {
                     sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ECR_IMAGE_URI}"
-                    sh "docker push ${AWS_ECR_IMAGE_URI}:${BUILD_NUMBER}"
                     sh "docker push ${AWS_ECR_IMAGE_URI}:latest"
                 }
             }
