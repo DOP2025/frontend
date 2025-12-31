@@ -39,8 +39,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    echo "Building Docker image: ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}"
-                    sh "docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} -t ${DOCKER_IMAGE_NAME}:latest ."
+                    echo "Building Docker image: ${DOCKER_IMAGE_NAME}:v1.0.${BUILD_NUMBER}"
+                    sh "docker build -t ${DOCKER_IMAGE_NAME}:v1.0.${BUILD_NUMBER} -t ${DOCKER_IMAGE_NAME}:latest ."
                 }
             }
         }
