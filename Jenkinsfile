@@ -54,7 +54,7 @@ pipeline {
             // '''
             // echo "The value of TEST_PARAM is: ${params.TEST_PARAM}"
             // sh "echo ${params.TEST_PARAM}"
-            sh "echo quick test"
+            sh "echo quick test 2"
             sh "id -ng"
           }
         }
