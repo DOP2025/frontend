@@ -18,6 +18,21 @@ pipeline {
             }
         }
 
+        stage('Install Docker') {
+            steps {
+                sh '''
+                # Install Docker if not already installed
+                if ! [ -x "$(command -v docker)" ]; then
+                    echo "Docker is not installed. Installing Docker..."
+                    curl -fsSL https://get.docker.com -o get-docker.sh
+                    sh get-docker.sh
+                    rm get-docker.sh
+                else
+                    echo "Docker is already installed."
+                fi
+                '''
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 script {
