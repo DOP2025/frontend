@@ -4,7 +4,7 @@ git push origin featureA -u
 
 
 git add .
-git commit -m "deploy(git): provision with applying normally"
+git commit -m "deploy(jenkins): clone code simple way"
 git push origin main -u
 
 git pull https://github.com/DOP2025/frontend.git main
