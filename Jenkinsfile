@@ -39,26 +39,39 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    echo "Building Docker image: ${DOCKER_IMAGE_NAME}:v1.0.${BUILD_NUMBER}"
-                    sh "docker build -t ${DOCKER_IMAGE_NAME}:v1.0.${BUILD_NUMBER} -t ${DOCKER_IMAGE_NAME}:latest ."
+                    // echo "Building Docker image: ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}"
+                    // sh "docker build -t ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER} -t ${DOCKER_IMAGE_NAME}:latest ."
+                    echo "Building Docker Image ..."
+                    sh "docker build -t ${AWS_ECR_IMAGE_URI}:${BUILD_NUMBER} -t ${AWS_ECR_IMAGE_URI}:latest ."
                 }
             }
         }
 
-        stage('Push to DockerHub') {
+        stage('Push to ECR') {
             steps {
-                withCredentials([usernamePassword(credentialsId: DOCKERHUB_CREDENTIALS_ID, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    sh "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
-                    sh "docker push ${DOCKER_IMAGE_NAME}:v1.0.${BUILD_NUMBER}"
-                    sh "docker push ${DOCKER_IMAGE_NAME}:latest"
+                withCredentials([aws(credentialsId: AWS_CREDENTIALS_ID, region: AWS_REGION)]) {
+                    sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${AWS_ECR_IMAGE_URI}"
+                    sh "docker push ${AWS_ECR_IMAGE_URI}:${BUILD_NUMBER}"
+                    sh "docker push ${AWS_ECR_IMAGE_URI}:latest"
                 }
             }
         }
+
+        // stage('Push to DockerHub') {
+        //     steps {
+        //         withCredentials([usernamePassword(credentialsId: DOCKERHUB_CREDENTIALS_ID, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+        //             sh "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
+        //             sh "docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}"
+        //             sh "docker push ${DOCKER_IMAGE_NAME}:latest"
+        //         }
+        //     }
+        // }
     }
 
     post {
         always {
-            sh "docker logout"
+            // sh "docker logout"
+            sh "docker logout ${AWS_ECR_IMAGE_URI}"
         }
     }
 }
