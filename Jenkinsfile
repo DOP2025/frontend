@@ -7,7 +7,8 @@ pipeline {
     environment {
         // 2. Define environment variables
         DOCKERHUB_CREDENTIALS_ID = 'dockerhub-credentials'
-        DOCKER_IMAGE_NAME = 'nguyentdkptit02/dop2025.shopsquare.frontend' 
+        AWS_CREDENTIALS_ID = 'aws-credentials'
+        DOCKER_IMAGE_NAME = 'nguyentdkptit02/dop2025.shopsquare.frontend'
     }
 
     stages {
@@ -18,12 +19,6 @@ pipeline {
             }
         }
 
-        stage('Test Pipeline') {
-            steps {
-                echo "jk agent checking"
-                echo "jk agent checking"
-            }
-        }
         stage('Install Docker') {
             steps {
                 sh '''
@@ -54,7 +49,7 @@ pipeline {
                 // 5. Use the credentials stored in Jenkins to log in and push
                 withCredentials([usernamePassword(credentialsId: DOCKERHUB_CREDENTIALS_ID, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
-                    sh "docker push ${DOCKER_IMAGE_NAME}:${BUILD_NUMBER}"
+                    sh "docker push ${DOCKER_IMAGE_NAME}:v1.0.${BUILD_NUMBER}"
                     sh "docker push ${DOCKER_IMAGE_NAME}:latest"
                 }
             }
