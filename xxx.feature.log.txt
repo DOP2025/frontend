@@ -5,3 +5,4 @@ init dev branch
 featureC 
 main sus push
 check: jenkins pipeline
+check: analysis with sonar
