@@ -15,6 +15,8 @@ pipeline {
 
         SONAR_HOST_URL = 'http://13.125.65.154:9000'
         SONAR_AUTH_TOKEN = credentials('sonar-qube-demo-pat')
+        scannerHome = tool 'SonarQubeScanner'
+
     }
 
     stages {
@@ -40,9 +42,6 @@ pipeline {
 
         stage('Analysis') {
             steps {
-                environment {
-                    scannerHome = tool 'SonarQubeScanner'
-                }
                 step {
                     withSonarQubeEnv('SonarQubeServer') {
                         sh "${scannerHome}/bin/sonar-scanner \
