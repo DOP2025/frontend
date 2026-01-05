@@ -29,6 +29,24 @@ pipeline {
             }
         }
 
+        // stage('Analysis') {
+        //     steps {
+        //         environment {
+        //             scannerHome = tool 'SonarQubeScanner'
+        //         }
+        //         steps {
+        //             withSonarQubeEnv('SonarQubeServer') {
+                    //     sh "${scannerHome}/bin/sonar-scanner \
+                    //         -Dsonar.projectKey=shopsquare-frontend \
+                    //         -Dsonar.projectName=shopsquare-frontend \
+                    //         -Dsonar.sources=. \
+                    //         -Dsonar.host.url=$SONAR_HOST_URL \
+                    //         -Dsonar.login=$SONAR_AUTH_TOKEN \                            
+                    // }
+        //         }
+        //     }
+        // }
+
         stage('Install Docker') {
             steps {
                 sh '''
