@@ -24,6 +24,11 @@ pipeline {
             }
         }
 
+        stage('Check Updates') {
+            steps {
+                echo "Check Success!"
+            }
+        }
         stage('Setup dependencies') {
             steps {
                 // sh 'node --version'
