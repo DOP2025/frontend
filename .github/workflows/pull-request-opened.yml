@@ -79,6 +79,11 @@ jobs:
         env:
           SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
+        with:
+          args: >
+            -Dsonar.projectKey=shopsquare-frontend
+            -Dsonar.projectName=shopsquare-frontend
+            -Dsonar.sources=.
         
 
       - name: Login to Docker Hub
