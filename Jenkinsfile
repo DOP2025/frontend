@@ -43,7 +43,7 @@ pipeline {
                 environment {
                     scannerHome = tool 'SonarQubeScanner'
                 }
-                steps {
+                step {
                     withSonarQubeEnv('SonarQubeServer') {
                         sh "${scannerHome}/bin/sonar-scanner \
                             -Dsonar.projectKey=shopsquare-frontend \
