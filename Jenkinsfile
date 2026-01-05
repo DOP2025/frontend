@@ -27,6 +27,7 @@ pipeline {
         stage('Check Updates') {
             steps {
                 echo "Check Success!"
+                echo "Test ..."
             }
         }
         stage('Setup dependencies') {
