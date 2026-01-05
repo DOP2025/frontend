@@ -42,16 +42,14 @@ pipeline {
 
         stage('Analysis') {
             steps {
-                step {
-                    withSonarQubeEnv('SonarQubeServer') {
-                        sh "${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=shopsquare-frontend \
-                            -Dsonar.projectName=shopsquare-frontend \
-                            -Dsonar.sources=. \
-                            -Dsonar.host.url=$SONAR_HOST_URL \
-                            -Dsonar.login=$SONAR_AUTH_TOKEN"     
-                    }                    
-                }
+                withSonarQubeEnv('SonarQubeServer') {
+                    sh "${scannerHome}/bin/sonar-scanner \
+                        -Dsonar.projectKey=shopsquare-frontend \
+                        -Dsonar.projectName=shopsquare-frontend \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=$SONAR_HOST_URL \
+                        -Dsonar.login=$SONAR_AUTH_TOKEN"     
+                }                     
             }
         }
 
