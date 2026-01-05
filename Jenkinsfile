@@ -29,7 +29,7 @@ pipeline {
         stage('Check Updates') {
             steps {
                 echo "Check Success!"
-                echo "Test ..."
+                echo "Test ...."
             }
         }
         stage('Setup dependencies') {
