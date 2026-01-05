@@ -12,6 +12,9 @@ pipeline {
         AWS_ACCOUNT_ID = '846040891095'
         AWS_ECR_REPO_NAME = 'shopsquare/frontend'
         AWS_ECR_IMAGE_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${AWS_ECR_REPO_NAME}"
+
+        SONAR_HOST_URL = 'http://13.125.65.154:9000'
+        SONAR_AUTH_TOKEN = credentials('sonar-qube-demo-pat')
     }
 
     stages {
@@ -29,23 +32,24 @@ pipeline {
             }
         }
 
-        // stage('Analysis') {
-        //     steps {
-        //         environment {
-        //             scannerHome = tool 'SonarQubeScanner'
-        //         }
-        //         steps {
-        //             withSonarQubeEnv('SonarQubeServer') {
-                    //     sh "${scannerHome}/bin/sonar-scanner \
-                    //         -Dsonar.projectKey=shopsquare-frontend \
-                    //         -Dsonar.projectName=shopsquare-frontend \
-                    //         -Dsonar.sources=. \
-                    //         -Dsonar.host.url=$SONAR_HOST_URL \
-                    //         -Dsonar.login=$SONAR_AUTH_TOKEN \                            
-                    // }
-        //         }
-        //     }
-        // }
+        stage('Analysis') {
+            steps {
+                environment {
+                    scannerHome = tool 'SonarQubeScanner'
+                }
+                steps {
+                    withSonarQubeEnv('SonarQubeServer') {
+                        sh "${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=shopsquare-frontend \
+                            -Dsonar.projectName=shopsquare-frontend \
+                            -Dsonar.sources=. \
+                            -Dsonar.host.url=$SONAR_HOST_URL \
+                            -Dsonar.login=$SONAR_AUTH_TOKEN"     
+                        }                    
+                    }
+                }
+            }
+        }
 
         stage('Install Docker') {
             steps {
