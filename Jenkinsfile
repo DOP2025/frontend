@@ -29,7 +29,7 @@ pipeline {
         stage('Check Updates') {
             steps {
                 echo "Check Success!"
-                echo "Test ..."
+                echo "Test ...."
             }
         }
         stage('Setup dependencies') {
@@ -48,7 +48,7 @@ pipeline {
                         -Dsonar.projectName=shopsquare-frontend \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=$SONAR_HOST_URL \
-                        -Dsonar.login=$SONAR_AUTH_TOKEN"     
+                        -Dsonar.login=$SONAR_AUTH_TOKEN"   
                 }                     
             }
         }
