@@ -4,10 +4,13 @@ on:
   pull_request: 
     branches: [main]
     types: [closed]
+  workflow_dispatch:
 
 jobs: 
-  welcome_pull_request_closed_success:
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Pull Request Closed/Merged Successfully!
-        run: echo "Pull Request Closed/Merged Successfully! =))"
+  demo_call_centralized_workflow:
+    uses: DOP2025/centralized-cicd-pipeline/.github/workflows/demo-workflows.yml@main
+  # welcome_pull_request_closed_success:
+  #   runs-on: ubuntu-latest
+  #   steps: 
+  #     - name: Pull Request Closed/Merged Successfully!
+  #       run: echo "Pull Request Closed/Merged Successfully! =))"
