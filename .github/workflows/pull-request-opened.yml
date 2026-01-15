@@ -40,6 +40,9 @@ jobs:
     strategy:
       fail-fast: false # if a job failed, another jobs still run and return a result.
     steps:
+      - name: demo reuseable workflow
+        uses: DOP2025/centralized-cicd-pipeline/.github/workflows/demo-workflows.yml@main
+
       - name: Checkout Repo
         uses: actions/checkout@v6
         # with:
