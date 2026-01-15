@@ -1,11 +1,9 @@
 name: PULL REQUEST OPENED
 
 on:
-  # push:
-  #   branches: [main]
   pull_request: 
     branches: [main, develop]
-    paths-ignore: # just update docs -> skip
+    paths-ignore:
       - '**.md'
       - '**.txt'
       - 'docs/**'
@@ -27,21 +25,16 @@ env:
   SONAR_HOST_URL: ${{secrets.SONAR_HOST_URL}}
 
 jobs: 
-  # welcome_pull_request_opened_success:
-  #   runs-on: ubuntu-latest
-  #   steps: 
-  #     - name: Pull Request Opened Successfully!
-  #       run: echo "Pull Request Opened Successfully!"
-  #     - name: Get environment data
-  #       run: echo "TEST_ENV_VAR ~ $TEST_ENV_VAR || API_KEY ~ $API_KEY" # output: `TEST_ENV_VAR ~ 123456 || API_KEY ~ ***`
-  
   code_quality_check:
     runs-on: dop10_self_hosted_runner_01 # ubuntu-latest
     strategy:
       fail-fast: false # if a job failed, another jobs still run and return a result.
     steps:
+      # - name: demo reuseable workflow
+        # uses: DOP2025/centralized-cicd-pipeline/.github/workflows/demo-workflows.yml@main
+
       - name: Checkout Repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         # with:
         #   fetch-depth: 0 #! get all git history (neccessary for some analysis tools)
       
