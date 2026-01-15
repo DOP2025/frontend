@@ -1,4 +1,4 @@
-name: PULL REQUEST OPENED
+name: CALL REUSABLE WORKFLOW
 
 on:
   pull_request: 
@@ -34,7 +34,7 @@ jobs:
         # uses: DOP2025/centralized-cicd-pipeline/.github/workflows/demo-workflows.yml@main
 
       - name: Checkout Repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         # with:
         #   fetch-depth: 0 #! get all git history (neccessary for some analysis tools)
       
