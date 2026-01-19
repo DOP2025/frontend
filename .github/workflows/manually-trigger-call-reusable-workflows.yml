@@ -26,13 +26,12 @@ env:
 
 jobs: 
   code_quality_check:
-    runs-on: dop10_self_hosted_runner_01 # ubuntu-latest
-    strategy:
-      fail-fast: false # if a job failed, another jobs still run and return a result.
-    steps:
-      - name: demo reuseable workflow
-        uses: DOP2025/centralized-cicd-pipeline/.github/workflows/demo-workflows.yml@main
-
+    uses: DOP2025/centralized-cicd-pipeline/.github/workflows/demo-workflows.yml@main
+    # runs-on: dop10_self_hosted_runner_01 # ubuntu-latest
+    # strategy:
+    #   fail-fast: false # if a job failed, another jobs still run and return a result.
+    
+    # steps:
       # - name: Checkout Repo
       #   uses: actions/checkout@v4
         # with:
