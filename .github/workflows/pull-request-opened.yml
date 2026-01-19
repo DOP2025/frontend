@@ -40,6 +40,11 @@ jobs:
     strategy:
       fail-fast: false # if a job failed, another jobs still run and return a result.
     steps:
+      - name: Clean up previous builds
+        run: |
+          echo "Cleaning up workspace..."
+          rm -rf ${{ github.workspace }}/*
+          
       - name: Checkout Repo
         uses: actions/checkout@v4
         # with:
