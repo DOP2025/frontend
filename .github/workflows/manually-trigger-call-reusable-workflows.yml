@@ -27,6 +27,13 @@ env:
 jobs: 
   code_quality_check:
     uses: DOP2025/centralized-cicd-pipeline/.github/workflows/demo-workflows.yml@main
+    with: 
+      REGISTRY_TYPE: 'dockerhub'
+      IMAGE_NAME: 'dop2025.shopsquare.frontend'
+      IMAGE_TAG: ${{github.sha}}
+      DOCKER_USERNAME: 'nguyentdkptit02'
+    secrets:
+      DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
     # runs-on: dop10_self_hosted_runner_01 # ubuntu-latest
     # strategy:
     #   fail-fast: false # if a job failed, another jobs still run and return a result.
