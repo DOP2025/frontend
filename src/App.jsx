@@ -9,6 +9,7 @@ export default function App() {
   const [msg, setMsg] = useState('')
   const [userId, setUserId] = useState('demo_user')
 
+  console.log('This is new feature');
   // headers used by API for demo user scoping
   const hdrs = useMemo(() => ({ 'Content-Type': 'application/json', 'X-User-Id': userId }), [userId])
 

@@ -6,3 +6,4 @@ featureC
 main sus push
 check: jenkins pipeline
 check: analysis with sonar
+new feature
