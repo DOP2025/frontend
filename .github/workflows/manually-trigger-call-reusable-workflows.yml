@@ -34,6 +34,10 @@ jobs:
       DOCKER_USERNAME: 'nguyentdkptit02'
     secrets:
       DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+      SONAR_HOST_URL: ${{secrets.SONAR_HOST_URL}}
+      SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+      SONAR_PROJECT_KEY: 'shopsquare-frontend'
+
     # runs-on: dop10_self_hosted_runner_01 # ubuntu-latest
     # strategy:
     #   fail-fast: false # if a job failed, another jobs still run and return a result.
