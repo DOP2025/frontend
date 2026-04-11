@@ -1,0 +1,39 @@
+name: CALL REUSABLE WORKFLOW
+
+on:
+  pull_request: 
+    branches: [main, develop]
+    paths-ignore:
+      - '**.md'
+      - '**.txt'
+      - 'docs/**'
+      - '.github/workflows/**'
+    types: [opened, synchronize]
+  workflow_dispatch: 
+
+# Permission for GITHUB_TOKEN (Security Best Practice)  
+permissions: 
+  contents: read
+
+env:
+  TEST_ENV_VAR: 123456
+  API_KEY: ${{secrets.API_KEY}}
+  DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
+  DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+  DOCKERHUB_REPO_NAME: dop2025.shopsquare.frontend
+  SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+  SONAR_HOST_URL: ${{secrets.SONAR_HOST_URL}}
+
+jobs: 
+  code_quality_check:
+    uses: DOP2025/centralized-cicd-pipeline/.github/workflows/demo-workflows.yml@main
+    with: 
+      REGISTRY_TYPE: 'dockerhub'
+      IMAGE_NAME: 'dop2025.shopsquare.frontend'
+      IMAGE_TAG: ${{github.sha}}
+      DOCKER_USERNAME: 'nguyentdkptit02'
+    secrets:
+      DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+      SONAR_HOST_URL: ${{secrets.SONAR_HOST_URL}}
+      SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+      SONAR_PROJECT_KEY: 'shopsquare-frontend'

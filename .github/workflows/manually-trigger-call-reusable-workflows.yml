@@ -11,19 +11,6 @@ on:
     types: [opened, synchronize]
   workflow_dispatch: 
 
-# Permission for GITHUB_TOKEN (Security Best Practice)  
-permissions: 
-  contents: read
-
-env:
-  TEST_ENV_VAR: 123456
-  API_KEY: ${{secrets.API_KEY}}
-  DOCKERHUB_USERNAME: ${{secrets.DOCKERHUB_USERNAME}}
-  DOCKERHUB_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
-  DOCKERHUB_REPO_NAME: dop2025.shopsquare.frontend
-  SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
-  SONAR_HOST_URL: ${{secrets.SONAR_HOST_URL}}
-
 jobs: 
   code_quality_check:
     uses: DOP2025/centralized-cicd-pipeline/.github/workflows/demo-workflows.yml@main

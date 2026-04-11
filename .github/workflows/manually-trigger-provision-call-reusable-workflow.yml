@@ -1,0 +1,26 @@
+name: Manually Provision Reusable Workflow
+
+on:
+  pull_request: 
+    branches: [main, develop]
+    paths-ignore:
+      - '**.md'
+      - '**.txt'
+      - 'docs/**'
+      - '.github/workflows/**'
+    types: [opened, synchronize]
+  workflow_dispatch: 
+
+jobs: 
+  code_quality_check:
+    uses: DOP2025/centralized-cicd-pipeline/.github/workflows/demo-workflows.yml@main
+    with: 
+      REGISTRY_TYPE: 'dockerhub'
+      IMAGE_NAME: 'dop2025.shopsquare.frontend'
+      IMAGE_TAG: ${{github.sha}}
+      DOCKER_USERNAME: 'nguyentdkptit02'
+    secrets:
+      DOCKER_PASSWORD: ${{secrets.DOCKERHUB_PASSWORD}}
+      SONAR_HOST_URL: ${{secrets.SONAR_HOST_URL}}
+      SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+      SONAR_PROJECT_KEY: 'shopsquare-frontend'
